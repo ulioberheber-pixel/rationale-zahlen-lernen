@@ -162,7 +162,7 @@
 
         <!-- Aufgabe 1 -->
         <p><strong>1)</strong> $ -\frac{7}{12} - \frac{5}{18} $</p>
-        <input id="ex3_1" type="text" placeholder="Ergebnis eingeben (z.B. -11/36)">
+        <input id="ex3_1" type="text" placeholder="Ergebnis als Bruch mit / eingeben">
         <button onclick="checkEx3_1()">Prüfen</button>
         <p id="ex3_1_result"></p>
 
@@ -170,7 +170,7 @@
 
         <!-- Aufgabe 2 -->
         <p><strong>2)</strong> $ \frac{4}{9} : -\frac{2}{3} $</p>
-        <input id="ex3_2" type="text" placeholder="Ergebnis eingeben (z.B. -2/3)">
+        <input id="ex3_2" type="text" placeholder="Ergebnis eingeben als Bruch mit / eingeben">
         <button onclick="checkEx3_2()">Prüfen</button>
         <p id="ex3_2_result"></p>
     </div>
@@ -180,14 +180,14 @@
     // Aufgabe 1: -7/12 - 5/18 = -11/36
     function checkEx3_1() {
         const user = document.getElementById("ex3_1").value.replace(/\s+/g, "");
-        const solution = "-11/36";
+        const solution = "-31/36";
         const result = document.getElementById("ex3_1_result");
 
         if (user === solution) {
             result.innerHTML = "✔ Richtig! Gut gemacht.";
             result.style.color = "green";
         } else {
-            result.innerHTML = "✘ Leider falsch. Richtige Lösung: -11/36";
+            result.innerHTML = "✘ Leider falsch. Richtige Lösung: -31/36";
             result.style.color = "red";
         }
     }
