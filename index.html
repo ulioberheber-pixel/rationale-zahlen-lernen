@@ -181,6 +181,17 @@
     </div>
 </section>
 
+<section id="kap4">
+    <h2>Kapitel 4 – Challenge‑Modus (stabile Version)</h2>
+    <div class="exercise">
+        <p id="k4_task"></p>
+        <input id="k4_input" placeholder="Lösung als Bruch">
+        <button onclick="checkK4()">Prüfen</button>
+        <p id="k4_result"></p>
+    </div>
+</section>
+
+    
 <script>
 // Hilfsfunktionen
 function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); }
@@ -250,6 +261,48 @@ function checkK3() {
     out.style.color = (user===k3_solution) ? "green" : "red";
 }
 
+// Kapitel 4 – Challenge-Modus (stabile Version)
+let k4_solution;
+
+function generateK4() {
+    // Wir nehmen eine einfache, sichere Challenge:
+    // (a + b) * c
+
+    let a = randomFrac();
+    let b = randomFrac();
+    let c = randomFrac();
+
+    // Aufgabe anzeigen
+    let text = `$ ( \\frac{${a[0]}}{${a[1]}} + \\frac{${b[0]}}{${b[1]}} ) 
+                 \\cdot \\frac{${c[0]}}{${c[1]}} $`;
+
+    document.getElementById("k4_task").innerHTML = text;
+
+    // Schritt 1: a + b
+    let n1 = a[0] * b[1] + b[0] * a[1];
+    let d1 = a[1] * b[1];
+
+    // Schritt 2: (a+b) * c
+    let n = n1 * c[0];
+    let d = d1 * c[1];
+
+    k4_solution = fracToString(n, d);
+
+    if (window.MathJax) MathJax.typeset();
+}
+
+function checkK4() {
+    let user = document.getElementById("k4_input").value.replace(/\s+/g, "");
+    let out = document.getElementById("k4_result");
+
+    if (user === k4_solution) {
+        out.innerHTML = "✔ Challenge bestanden!";
+        out.style.color = "green";
+    } else {
+        out.innerHTML = "✘ Falsch. Lösung: " + k4_solution;
+        out.style.color = "red";
+    }
+}
 
 // Start
 window.onload = function() {
