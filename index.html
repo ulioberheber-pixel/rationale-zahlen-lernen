@@ -2,85 +2,37 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Rechnen mit rationalen Zahlen – Lernseite</title>
+    <title>Interaktive Lernseite – Rationale Zahlen</title>
 
-    <!-- MathJax für Formeln -->
+    <!-- MathJax -->
     <script>
-        MathJax = {
-            tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
-        };
+        MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };
     </script>
     <script id="MathJax-script" async
             src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
     </script>
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4faff;
-            margin: 0;
-            padding: 0;
-            color: #333;
-        }
-        header {
-            background: #0099cc;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        nav {
-            background: #e6f7ff;
-            padding: 10px;
-            text-align: center;
-        }
-        nav a {
-            margin: 10px;
-            text-decoration: none;
-            color: #006699;
-            font-weight: bold;
-        }
+        body { font-family: Arial; background:#f4faff; margin:0; padding:0; }
+        header { background:#0099cc; color:white; padding:20px; text-align:center; }
+        nav { background:#e6f7ff; padding:10px; text-align:center; }
+        nav a { margin:10px; text-decoration:none; color:#006699; font-weight:bold; }
         section {
-            padding: 20px;
-            max-width: 900px;
-            margin: auto;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            margin-top: 20px;
+            background:white; max-width:900px; margin:20px auto; padding:20px;
+            border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.1);
         }
-        h2 {
-            color: #006699;
-        }
-        .exercise {
-            background: #f0faff;
-            padding: 10px;
-            border-left: 4px solid #0099cc;
-            margin: 15px 0;
-        }
-        input {
-            padding: 6px;
-            margin-top: 5px;
-            width: 200px;
-        }
-        button {
-            padding: 6px 10px;
-            margin-left: 5px;
-            background: #0099cc;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #0077aa;
-        }
+        .exercise { background:#f0faff; padding:10px; border-left:4px solid #0099cc; }
+        input { padding:6px; width:200px; margin-top:5px; }
+        button { padding:6px 10px; background:#0099cc; color:white; border:none; cursor:pointer; }
+        button:hover { background:#0077aa; }
     </style>
 </head>
 
 <body>
 
 <header>
-    <h1>Rechnen mit rationalen Zahlen</h1>
-    <p>Lernseite für Schüler:innen – strukturiert nach dem Schulbuch</p>
+    <h1>Interaktive Lernseite – Rationale Zahlen</h1>
+    <p>Automatisch generierte Aufgaben mit Kontrolle</p>
 </header>
 
 <nav>
@@ -89,123 +41,193 @@
     <a href="#kap3">Kapitel 3</a>
 </nav>
 
+<!-- Kapitel 1 -->
 <section id="kap1">
-    <h2>Kapitel 1: Bruchrechnen mit positiven Zahlen</h2>
-
-    <h3>1.1 Wiederholung der Grundbegriffe</h3>
-    <p>Ein Bruch besteht aus Zähler und Nenner:  
-        $ \frac{a}{b} $ mit $b \neq 0$.</p>
-
-    <h3>1.2 Rechengesetze</h3>
-    <p>Addition:  
-        $ \frac{a}{b} + \frac{c}{b} = \frac{a+c}{b} $</p>
-    <p>Multiplikation:  
-        $ \frac{a}{b} \cdot \frac{c}{d} = \frac{ac}{bd} $</p>
-    <p>Division:  
-        $ \frac{a}{b} : \frac{c}{d} = \frac{a}{b} \cdot \frac{d}{c} $</p>
-
-    <h3>1.3 Komplexere Aufgaben mit Klammern</h3>
-    <p>
-        $ \left( \frac{2}{3} + \frac{1}{6} \right) \cdot 
-          \left( \frac{3}{4} - \frac{1}{8} \right) $
-    </p>
+    <h2>Kapitel 1 – Bruchrechnen</h2>
 
     <div class="exercise">
-        <strong>Übung:</strong><br>
-        Berechne:  
-        $ \left( \frac{5}{12} + \frac{1}{3} \right) : 
-          \left( \frac{7}{6} - \frac{1}{2} \right) $
+        <strong>Aufgabe:</strong>
+        <p id="k1_task"></p>
+
+        <input id="k1_input" placeholder="Ergebnis als Bruch eingeben">
+        <button onclick="checkK1()">Prüfen</button>
+        <p id="k1_result"></p>
     </div>
 </section>
 
+<!-- Kapitel 2 -->
 <section id="kap2">
-    <h2>Kapitel 2: Brüche ↔ Dezimalzahlen</h2>
-
-    <h3>2.1 Endliche Dezimalzahlen</h3>
-    <p>Beispiel:  
-        $ \frac{3}{8} = 0{,}375 $</p>
-
-    <h3>2.2 Unendliche Dezimalzahlen</h3>
-    <p>Beispiel:  
-        $ \frac{1}{7} = 0{,}142857142857… $</p>
-
-    <h3>2.3 Periodische Dezimalzahlen</h3>
-    <p>Beispiel:  
-        $ \frac{1}{3} = 0{,}333… = 0{,}\overline{3} $</p>
+    <h2>Kapitel 2 – Brüche ↔ Dezimalzahlen</h2>
 
     <div class="exercise">
-        <strong>Übung:</strong><br>
-        Wandle um:  
-        $ \frac{5}{6} $,  
-        $ \frac{7}{11} $,  
-        $ \frac{13}{40} $
+        <strong>Aufgabe:</strong>
+        <p id="k2_task"></p>
+
+        <input id="k2_input" placeholder="Ergebnis eingeben">
+        <button onclick="checkK2()">Prüfen</button>
+        <p id="k2_result"></p>
     </div>
 </section>
 
+<!-- Kapitel 3 -->
 <section id="kap3">
-    <h2>Kapitel 3: Rechnen mit rationalen Zahlen</h2>
-
-    <h3>3.1 Addition & Subtraktion</h3>
-    <p>Beispiel:  
-        $ -\frac{5}{8} + \frac{3}{4} = \frac{1}{8} $</p>
-
-    <h3>3.2 Multiplikation & Division</h3>
-    <p>Beispiel:  
-        $ -\frac{2}{3} \cdot \frac{9}{5} = -\frac{6}{5} $</p>
-
-    <h3>3.3 Zahlengerade</h3>
-    <p>Rationale Zahlen liegen dicht auf der Zahlengerade.</p>
+    <h2>Kapitel 3 – Rechnen mit rationalen Zahlen</h2>
 
     <div class="exercise">
-        <strong>Übung:</strong><br>
-        Berechne:<br><br>
+        <strong>Aufgabe:</strong>
+        <p id="k3_task"></p>
 
-        <!-- Aufgabe 1 -->
-        <p><strong>1)</strong> $ -\frac{7}{12} - \frac{5}{18} $</p>
-        <input id="ex3_1" type="text" placeholder="Ergebnis als Bruch mit / eingeben">
-        <button onclick="checkEx3_1()">Prüfen</button>
-        <p id="ex3_1_result"></p>
-
-        <br>
-
-        <!-- Aufgabe 2 -->
-        <p><strong>2)</strong> $ \frac{4}{9} : -\frac{2}{3} $</p>
-        <input id="ex3_2" type="text" placeholder="Ergebnis eingeben als Bruch mit / eingeben">
-        <button onclick="checkEx3_2()">Prüfen</button>
-        <p id="ex3_2_result"></p>
+        <input id="k3_input" placeholder="Ergebnis als Bruch eingeben">
+        <button onclick="checkK3()">Prüfen</button>
+        <p id="k3_result"></p>
     </div>
 </section>
 
 <script>
-    // Aufgabe 1: -7/12 - 5/18 = -11/36
-    function checkEx3_1() {
-        const user = document.getElementById("ex3_1").value.replace(/\s+/g, "");
-        const solution = "-31/36";
-        const result = document.getElementById("ex3_1_result");
+/* ---------------------------------------------------------
+   Hilfsfunktionen für Brüche
+--------------------------------------------------------- */
+function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); }
 
-        if (user === solution) {
-            result.innerHTML = "✔ Richtig! Gut gemacht.";
-            result.style.color = "green";
-        } else {
-            result.innerHTML = "✘ Leider falsch. Richtige Lösung: -31/36";
-            result.style.color = "red";
-        }
+function simplify(n, d) {
+    let g = gcd(Math.abs(n), Math.abs(d));
+    return [n / g, d / g];
+}
+
+function fracToString(n, d) {
+    let s = simplify(n, d);
+    return s[0] + "/" + s[1];
+}
+
+/* ---------------------------------------------------------
+   Zufallsbruch erzeugen
+--------------------------------------------------------- */
+function randomFrac() {
+    let n = Math.floor(Math.random() * 9) + 1;
+    let d = Math.floor(Math.random() * 9) + 1;
+    if (Math.random() < 0.5) n *= -1;
+    return [n, d];
+}
+
+/* ---------------------------------------------------------
+   Kapitel 1 – Addition oder Multiplikation
+--------------------------------------------------------- */
+let k1_a, k1_b, k1_c, k1_d, k1_solution;
+
+function generateK1() {
+    [k1_a, k1_b] = randomFrac();
+    [k1_c, k1_d] = randomFrac();
+
+    let type = Math.random() < 0.5 ? "add" : "mul";
+
+    if (type === "add") {
+        document.getElementById("k1_task").innerHTML =
+            `$ \\frac{${k1_a}}{${k1_b}} + \\frac{${k1_c}}{${k1_d}} $`;
+
+        let n = k1_a * k1_d + k1_c * k1_b;
+        let d = k1_b * k1_d;
+        k1_solution = fracToString(n, d);
+
+    } else {
+        document.getElementById("k1_task").innerHTML =
+            `$ \\frac{${k1_a}}{${k1_b}} \\cdot \\frac{${k1_c}}{${k1_d}} $`;
+
+        let n = k1_a * k1_c;
+        let d = k1_b * k1_d;
+        k1_solution = fracToString(n, d);
     }
+}
 
-    // Aufgabe 2: (4/9) : (-2/3) = -2/3
-    function checkEx3_2() {
-        const user = document.getElementById("ex3_2").value.replace(/\s+/g, "");
-        const solution = "-2/3";
-        const result = document.getElementById("ex3_2_result");
+function checkK1() {
+    let user = document.getElementById("k1_input").value.replace(/\s+/g, "");
+    let out = document.getElementById("k1_result");
 
-        if (user === solution) {
-            result.innerHTML = "✔ Richtig! Sehr gut!";
-            result.style.color = "green";
-        } else {
-            result.innerHTML = "✘ Leider falsch. Richtige Lösung: -2/3";
-            result.style.color = "red";
-        }
+    if (user === k1_solution) {
+        out.innerHTML = "✔ Richtig!";
+        out.style.color = "green";
+    } else {
+        out.innerHTML = "✘ Falsch. Lösung: " + k1_solution;
+        out.style.color = "red";
     }
+}
+
+/* ---------------------------------------------------------
+   Kapitel 2 – Bruch → Dezimalzahl
+--------------------------------------------------------- */
+let k2_n, k2_d, k2_solution;
+
+function generateK2() {
+    [k2_n, k2_d] = randomFrac();
+    document.getElementById("k2_task").innerHTML =
+        `$ \\frac{${k2_n}}{${k2_d}} $`;
+
+    k2_solution = (k2_n / k2_d).toFixed(4);
+}
+
+function checkK2() {
+    let user = document.getElementById("k2_input").value.replace(",", ".");
+    let out = document.getElementById("k2_result");
+
+    if (Math.abs(user - k2_solution) < 0.0001) {
+        out.innerHTML = "✔ Richtig!";
+        out.style.color = "green";
+    } else {
+        out.innerHTML = "✘ Falsch. Lösung: " + k2_solution;
+        out.style.color = "red";
+    }
+}
+
+/* ---------------------------------------------------------
+   Kapitel 3 – Subtraktion oder Division
+--------------------------------------------------------- */
+let k3_a, k3_b, k3_c, k3_d, k3_solution;
+
+function generateK3() {
+    [k3_a, k3_b] = randomFrac();
+    [k3_c, k3_d] = randomFrac();
+
+    let type = Math.random() < 0.5 ? "sub" : "div";
+
+    if (type === "sub") {
+        document.getElementById("k3_task").innerHTML =
+            `$ \\frac{${k3_a}}{${k3_b}} - \\frac{${k3_c}}{${k3_d}} $`;
+
+        let n = k3_a * k3_d - k3_c * k3_b;
+        let d = k3_b * k3_d;
+        k3_solution = fracToString(n, d);
+
+    } else {
+        document.getElementById("k3_task").innerHTML =
+            `$ \\frac{${k3_a}}{${k3_b}} : \\frac{${k3_c}}{${k3_d}} $`;
+
+        let n = k3_a * k3_d;
+        let d = k3_b * k3_c;
+        k3_solution = fracToString(n, d);
+    }
+}
+
+function checkK3() {
+    let user = document.getElementById("k3_input").value.replace(/\s+/g, "");
+    let out = document.getElementById("k3_result");
+
+    if (user === k3_solution) {
+        out.innerHTML = "✔ Richtig!";
+        out.style.color = "green";
+    } else {
+        out.innerHTML = "✘ Falsch. Lösung: " + k3_solution;
+        out.style.color = "red";
+    }
+}
+
+/* ---------------------------------------------------------
+   Seite starten
+--------------------------------------------------------- */
+window.onload = function() {
+    generateK1();
+    generateK2();
+    generateK3();
+    MathJax.typeset();
+};
 </script>
 
 </body>
