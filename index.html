@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Rationale Zahlen – Erklärungen</title>
+    <title>Rationale Zahlen – Interaktiv</title>
 
     <!-- MathJax für Formeln -->
     <script>
@@ -20,77 +20,25 @@
             border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.1);
         }
         h2 { color:#006699; }
+        .exercise { background:#f0faff; padding:10px; border-left:4px solid #0099cc; margin-top:10px; }
+        input { padding:6px; width:220px; margin-top:5px; }
+        button { padding:6px 10px; background:#0099cc; color:white; border:none; cursor:pointer; }
+        button:hover { background:#0077aa; }
     </style>
 </head>
 
 <body>
 
 <header>
-    <h1>Rationale Zahlen – Erklärungen</h1>
-    <p>Grundlagen, Beispiele und Regeln</p>
+    <h1>Rationale Zahlen – Interaktive Aufgaben</h1>
+    <p>Kapitel 1 und 2 mit automatischer Kontrolle</p>
 </header>
 
-<section>
-    <h2>Was ist ein Bruch?</h2>
-    <p>
-        Ein Bruch besteht aus einem Zähler und einem Nenner:
-        <br>
-        $ \frac{a}{b} $ mit $ b \neq 0 $.
-    </p>
-    <p>
-        Er beschreibt, wie viele Teile von einem Ganzen genommen werden.
-    </p>
-</section>
-
-<section>
-    <h2>Addieren von Brüchen</h2>
-    <p>
-        Brüche werden addiert, indem man sie auf einen gemeinsamen Nenner bringt:
-        <br>
-        $ \frac{a}{b} + \frac{c}{d} = \frac{ad + bc}{bd} $.
-    </p>
-</section>
-
-<section>
-    <h2>Subtrahieren von Brüchen</h2>
-    <p>
-        Analog zur Addition:
-        <br>
-        $ \frac{a}{b} - \frac{c}{d} = \frac{ad - bc}{bd} $.
-    </p>
-</section>
-
-<section>
-    <h2>Multiplikation von Brüchen</h2>
-    <p>
-        Zähler mal Zähler, Nenner mal Nenner:
-        <br>
-        $ \frac{a}{b} \cdot \frac{c}{d} = \frac{ac}{bd} $.
-    </p>
-</section>
-
-<section>
-    <h2>Division von Brüchen</h2>
-    <p>
-        Man multipliziert mit dem Kehrwert:
-        <br>
-        $ \frac{a}{b} : \frac{c}{d} = \frac{a}{b} \cdot \frac{d}{c} $.
-    </p>
-</section>
-
-<section>
-    <h2>Umwandlung in Dezimalzahlen</h2>
-    <p>
-        Jeder Bruch kann durch Division in eine Dezimalzahl umgewandelt werden:
-        <br>
-        $ \frac{a}{b} = a : b $.
-    </p>
-</section>
 <section id="kap1">
     <h2>Kapitel 1 – Addieren & Subtrahieren (Interaktiv)</h2>
     <div class="exercise">
         <p id="k1_task"></p>
-        <input id="k1_input" placeholder="Lösung eingeben">
+        <input id="k1_input" placeholder="Lösung als Bruch, z.B. -3/5">
         <button onclick="checkK1()">Prüfen</button>
         <p id="k1_result"></p>
     </div>
@@ -106,113 +54,6 @@
     </div>
 </section>
 
-<section id="kap3">
-    <h2>Kapitel 3 – Klammern & Division (Interaktiv)</h2>
-    <div class="exercise">
-        <p id="k3_task"></p>
-        <input id="k3_input" placeholder="Lösung eingeben">
-        <button onclick="checkK3()">Prüfen</button>
-        <p id="k3_result"></p>
-    </div>
-</section>
-
-<section id="kap4">
-    <h2>Challenge‑Modus</h2>
-    <div class="exercise">
-        <p id="k4_task"></p>
-        <input id="k4_input" placeholder="Lösung eingeben">
-        <button onclick="checkK4()">Prüfen</button>
-        <p id="k4_result"></p>
-    </div>
-</section>
-<script>
-function gcd(a, b) {
-    return b === 0 ? a : gcd(b, a % b);
-}
-
-function simplify(n, d) {
-    let g = gcd(Math.abs(n), Math.abs(d));
-    return [n / g, d / g];
-}
-
-function fracToString(n, d) {
-    let s = simplify(n, d);
-    return s[0] + "/" + s[1];
-}
-
-function randomFrac() {
-    let n = Math.floor(Math.random() * 9) + 1;
-    let d = Math.floor(Math.random() * 9) + 1;
-    if (Math.random() < 0.5) n *= -1;
-    return [n, d];
-}
-
-let k1_solution;
-
-function generateK1() {
-    let a = randomFrac();
-    let b = randomFrac();
-
-    // Aufgabe-Text für MathJax
-    let text = `$ \\frac{${a[0]}}{${a[1]}} + \\frac{${b[0]}}{${b[1]}} $`;
-
-    // Lösung berechnen
-    let n = a[0] * b[1] + b[0] * a[1];
-    let d = a[1] * b[1];
-    k1_solution = fracToString(n, d);
-
-    document.getElementById("k1_task").innerHTML = text;
-    if (window.MathJax) MathJax.typeset();
-}
-
-function checkK1() {
-    let user = document.getElementById("k1_input").value.replace(/\s+/g, "");
-    let out = document.getElementById("k1_result");
-
-    if (user === k1_solution) {
-        out.innerHTML = "✔ Richtig!";
-        out.style.color = "green";
-    } else {
-        out.innerHTML = "✘ Falsch. Lösung: " + k1_solution;
-        out.style.color = "red";
-    }
-}
-
-// Beim Laden der Seite eine Aufgabe erzeugen
-window.onload = function() {
-    generateK1();
-};
-
-// Kapitel 2 – Dezimaldarstellung
-let k2_solution;
-
-function generateK2() {
-    let [n, d] = randomFrac();
-
-    // Aufgabe anzeigen
-    let text = `$ \\frac{${n}}{${d}} $`;
-    document.getElementById("k2_task").innerHTML = text;
-
-    // Lösung berechnen
-    k2_solution = (n / d).toFixed(5);
-
-    // MathJax aktualisieren
-    if (window.MathJax) MathJax.typeset();
-}
-
-function checkK2() {
-    let user = document.getElementById("k2_input").value.replace(",", ".");
-    let out = document.getElementById("k2_result");
-
-    if (Math.abs(user - k2_solution) < 0.0001) {
-        out.innerHTML = "✔ Richtig!";
-        out.style.color = "green";
-    } else {
-        out.innerHTML = "✘ Falsch. Lösung: " + k2_solution;
-        out.style.color = "red";
-    }
-}
-</script>
 <script>
 // Hilfsfunktionen
 function gcd(a, b) {
@@ -236,27 +77,23 @@ function randomFrac() {
     return [n, d];
 }
 
-// Kapitel 1 – Aufgabe erzeugen
+// Kapitel 1
 let k1_solution;
 
 function generateK1() {
     let a = randomFrac();
     let b = randomFrac();
 
-    // Aufgabe anzeigen
     let text = `$ \\frac{${a[0]}}{${a[1]}} + \\frac{${b[0]}}{${b[1]}} $`;
     document.getElementById("k1_task").innerHTML = text;
 
-    // Lösung berechnen
     let n = a[0] * b[1] + b[0] * a[1];
     let d = a[1] * b[1];
     k1_solution = fracToString(n, d);
 
-    // MathJax aktualisieren
     if (window.MathJax) MathJax.typeset();
 }
 
-// Prüfen
 function checkK1() {
     let user = document.getElementById("k1_input").value.replace(/\s+/g, "");
     let out = document.getElementById("k1_result");
@@ -269,7 +106,33 @@ function checkK1() {
         out.style.color = "red";
     }
 }
-   
+
+// Kapitel 2
+let k2_solution;
+
+function generateK2() {
+    let [n, d] = randomFrac();
+
+    let text = `$ \\frac{${n}}{${d}} $`;
+    document.getElementById("k2_task").innerHTML = text;
+
+    k2_solution = (n / d).toFixed(5);
+
+    if (window.MathJax) MathJax.typeset();
+}
+
+function checkK2() {
+    let user = document.getElementById("k2_input").value.replace(",", ".");
+    let out = document.getElementById("k2_result");
+
+    if (Math.abs(user - k2_solution) < 0.0001) {
+        out.innerHTML = "✔ Richtig!";
+        out.style.color = "green";
+    } else {
+        out.innerHTML = "✘ Falsch. Lösung: " + k2_solution;
+        out.style.color = "red";
+    }
+}
 
 // Seite starten
 window.onload = function() {
