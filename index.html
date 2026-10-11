@@ -64,6 +64,16 @@
     </div>
 </section>
 
+<section id="kap4">
+    <h2>Kapitel 4 – Challenge‑Modus</h2>
+    <div class="exercise">
+        <p id="k4_task"></p>
+        <input id="k4_input" placeholder="Lösung als Bruch">
+        <button onclick="checkK4()">Prüfen</button>
+        <p id="k4_result"></p>
+    </div>
+</section>
+
 <script>
 // Hilfsfunktionen
 function gcd(a, b) {
@@ -183,11 +193,60 @@ function checkK3() {
     }
 }
 
+// Kapitel 4 – Challenge-Modus
+let k4_solution;
+
+function generateK4() {
+    let a = randomFrac();
+    let b = randomFrac();
+    let c = randomFrac();
+    let d = randomFrac();
+
+    // Aufgabe anzeigen
+    let text = `$ \\left( \\frac{${a[0]}}{${a[1]}} + \\frac{${b[0]}}{${b[1]}} - \\frac{${c[0]}}{${c[1]}} \\right)
+                 \\cdot \\left( \\frac{${d[0]}}{${d[1]}} : \\frac{${a[0]}}{${a[1]}} \\right) $`;
+
+    document.getElementById("k4_task").innerHTML = text;
+
+    // Teil 1: a + b - c
+    let n1 = a[0] * b[1] + b[0] * a[1];
+    let d1 = a[1] * b[1];
+
+    n1 = n1 * c[1] - c[0] * d1;
+    d1 = d1 * c[1];
+
+    // Teil 2: d : a → multiplizieren mit Kehrwert
+    let n2 = d[0] * a[1];
+    let d2 = d[1] * a[0];
+
+    // Gesamt
+    let n = n1 * n2;
+    let d = d1 * d2;
+
+    k4_solution = fracToString(n, d);
+
+    if (window.MathJax) MathJax.typeset();
+}
+
+function checkK4() {
+    let user = document.getElementById("k4_input").value.replace(/\s+/g, "");
+    let out = document.getElementById("k4_result");
+
+    if (user === k4_solution) {
+        out.innerHTML = "✔ Challenge bestanden!";
+        out.style.color = "green";
+    } else {
+        out.innerHTML = "✘ Falsch. Lösung: " + k4_solution;
+        out.style.color = "red";
+    }
+}
+
 // Seite starten
 window.onload = function() {
     generateK1();
     generateK2();
     generateK3();
+    generateK4();
 };
 </script>
 
