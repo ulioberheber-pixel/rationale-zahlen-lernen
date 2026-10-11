@@ -54,6 +54,16 @@
     </div>
 </section>
 
+<section id="kap3">
+    <h2>Kapitel 3 – Klammern & Division (Interaktiv)</h2>
+    <div class="exercise">
+        <p id="k3_task"></p>
+        <input id="k3_input" placeholder="Lösung als Bruch, z.B. 3/7">
+        <button onclick="checkK3()">Prüfen</button>
+        <p id="k3_result"></p>
+    </div>
+</section>
+
 <script>
 // Hilfsfunktionen
 function gcd(a, b) {
@@ -134,10 +144,50 @@ function checkK2() {
     }
 }
 
+// Kapitel 3 – Klammern & Division
+let k3_solution;
+
+function generateK3() {
+    let a = randomFrac();
+    let b = randomFrac();
+    let c = randomFrac();
+
+    // Aufgabe anzeigen
+    let text = `$ \\left( \\frac{${a[0]}}{${a[1]}} + \\frac{${b[0]}}{${b[1]}} \\right)
+                 : \\frac{${c[0]}}{${c[1]}} $`;
+    document.getElementById("k3_task").innerHTML = text;
+
+    // Schritt 1: a + b
+    let n1 = a[0] * b[1] + b[0] * a[1];
+    let d1 = a[1] * b[1];
+
+    // Schritt 2: (a+b) : c  → multiplizieren mit Kehrwert
+    let n = n1 * c[1];
+    let d = d1 * c[0];
+
+    k3_solution = fracToString(n, d);
+
+    if (window.MathJax) MathJax.typeset();
+}
+
+function checkK3() {
+    let user = document.getElementById("k3_input").value.replace(/\s+/g, "");
+    let out = document.getElementById("k3_result");
+
+    if (user === k3_solution) {
+        out.innerHTML = "✔ Richtig!";
+        out.style.color = "green";
+    } else {
+        out.innerHTML = "✘ Falsch. Lösung: " + k3_solution;
+        out.style.color = "red";
+    }
+}
+
 // Seite starten
 window.onload = function() {
     generateK1();
     generateK2();
+    generateK3();
 };
 </script>
 
