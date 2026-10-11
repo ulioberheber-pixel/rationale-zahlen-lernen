@@ -41,3 +41,169 @@
     <a href="#kap3">Kapitel 3</a>
     <a href="#kap4">Challenge‑Modus</a>
 </nav>
+
+<!-- Kapitel 1, 2, 3, 4 folgen hier mit Aufgaben -->
+<!-- Jetzt kommt der komplette JavaScript-Teil -->
+
+<script>
+function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); }
+
+function simplify(n, d) {
+    let g = gcd(Math.abs(n), Math.abs(d));
+    return [n / g, d / g];
+}
+
+function fracToString(n, d) {
+    let s = simplify(n, d);
+    return s[0] + "/" + s[1];
+}
+
+function randomFrac() {
+    let n = Math.floor(Math.random() * 9) + 1;
+    let d = Math.floor(Math.random() * 9) + 1;
+    if (Math.random() < 0.5) n *= -1;
+    return [n, d];
+}
+
+let k1_solution;
+function generateK1() {
+    let parts = [randomFrac(), randomFrac(), randomFrac()];
+    let ops = ["+", "-", "+"];
+
+    let text = "";
+    let n = parts[0][0];
+    let d = parts[0][1];
+
+    text += `$ \\frac{${n}}{${d}} `;
+
+    for (let i = 1; i < 3; i++) {
+        let p = parts[i];
+        text += ops[i] + ` \\frac{${p[0]}}{${p[1]}} `;
+
+        if (ops[i] === "+") {
+            n = n * p[1] + p[0] * d;
+            d = d * p[1];
+        } else {
+            n = n * p[1] - p[0] * d;
+            d = d * p[1];
+        }
+    }
+
+    k1_solution = fracToString(n, d);
+    document.getElementById("k1_task").innerHTML = text;
+}
+
+let k2_solution;
+function generateK2() {
+    let [n, d] = randomFrac();
+    document.getElementById("k2_task").innerHTML =
+        `$ \\frac{${n}}{${d}} $`;
+    k2_solution = (n / d).toFixed(5);
+}
+
+let k3_solution;
+function generateK3() {
+    let a = randomFrac();
+    let b = randomFrac();
+    let c = randomFrac();
+
+    let op = Math.random() < 0.5 ? "+" : "-";
+
+    let text = `$ \\left( \\frac{${a[0]}}{${a[1]}} ${op} \\frac{${b[0]}}{${b[1]}} \\right)
+                 : \\left( \\frac{${c[0]}}{${c[1]}} \\right) $`;
+
+    let n1 = op === "+"
+        ? a[0] * b[1] + b[0] * a[1]
+        : a[0] * b[1] - b[0] * a[1];
+
+    let d1 = a[1] * b[1];
+
+    let n = n1 * c[1];
+    let d = d1 * c[0];
+
+    k3_solution = fracToString(n, d);
+    document.getElementById("k3_task").innerHTML = text;
+}
+
+let k4_solution;
+function generateK4() {
+    let a = randomFrac();
+    let b = randomFrac();
+    let c = randomFrac();
+    let d = randomFrac();
+
+    let text = `$ \\left( \\frac{${a[0]}}{${a[1]}} + \\frac{${b[0]}}{${b[1]}}
+                 - \\frac{${c[0]}}{${c[1]}} \\right)
+                 \\cdot \\left( \\frac{${d[0]}}{${d[1]}} : \\frac{${a[0]}}{${a[1]}} \\right) $`;
+
+    let n1 = a[0] * b[1] + b[0] * a[1];
+    let d1 = a[1] * b[1];
+
+    n1 = n1 * c[1] - c[0] * d1;
+    d1 = d1 * c[1];
+
+    let n2 = d[0] * a[1];
+    let d2 = d[1] * a[0];
+
+    let n = n1 * n2;
+    let d = d1 * d2;
+
+    k4_solution = fracToString(n, d);
+    document.getElementById("k4_task").innerHTML = text;
+}
+
+function checkK1() {
+    let user = document.getElementById("k1_input").value.replace(/\s+/g, "");
+    let out = document.getElementById("k1_result");
+
+    out.innerHTML = user === k1_solution
+        ? "✔ Richtig!"
+        : "✘ Falsch. Lösung: " + k1_solution;
+
+    out.style.color = user === k1_solution ? "green" : "red";
+}
+
+function checkK2() {
+    let user = document.getElementById("k2_input").value.replace(",", ".");
+    let out = document.getElementById("k2_result");
+
+    out.innerHTML = Math.abs(user - k2_solution) < 0.0001
+        ? "✔ Richtig!"
+        : "✘ Falsch. Lösung: " + k2_solution;
+
+    out.style.color = Math.abs(user - k2_solution) < 0.0001 ? "green" : "red";
+}
+
+function checkK3() {
+    let user = document.getElementById("k3_input").value.replace(/\s+/g, "");
+    let out = document.getElementById("k3_result");
+
+    out.innerHTML = user === k3_solution
+        ? "✔ Richtig!"
+        : "✘ Falsch. Lösung: " + k3_solution;
+
+    out.style.color = user === k3_solution ? "green" : "red";
+}
+
+function checkK4() {
+    let user = document.getElementById("k4_input").value.replace(/\s+/g, "");
+    let out = document.getElementById("k4_result");
+
+    out.innerHTML = user === k4_solution
+        ? "✔ Challenge bestanden!"
+        : "✘ Falsch. Lösung: " + k4_solution;
+
+    out.style.color = user === k4_solution ? "green" : "red";
+}
+
+window.onload = function() {
+    generateK1();
+    generateK2();
+    generateK3();
+    generateK4();
+    MathJax.typeset();
+};
+</script>
+
+</body>
+</html>
