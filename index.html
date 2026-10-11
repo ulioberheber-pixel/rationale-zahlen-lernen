@@ -182,6 +182,36 @@ function checkK1() {
 window.onload = function() {
     generateK1();
 };
+
+// Kapitel 2 – Dezimaldarstellung
+let k2_solution;
+
+function generateK2() {
+    let [n, d] = randomFrac();
+
+    // Aufgabe anzeigen
+    let text = `$ \\frac{${n}}{${d}} $`;
+    document.getElementById("k2_task").innerHTML = text;
+
+    // Lösung berechnen
+    k2_solution = (n / d).toFixed(5);
+
+    // MathJax aktualisieren
+    if (window.MathJax) MathJax.typeset();
+}
+
+function checkK2() {
+    let user = document.getElementById("k2_input").value.replace(",", ".");
+    let out = document.getElementById("k2_result");
+
+    if (Math.abs(user - k2_solution) < 0.0001) {
+        out.innerHTML = "✔ Richtig!";
+        out.style.color = "green";
+    } else {
+        out.innerHTML = "✘ Falsch. Lösung: " + k2_solution;
+        out.style.color = "red";
+    }
+}
 </script>
 <script>
 // Hilfsfunktionen
@@ -240,34 +270,6 @@ function checkK1() {
     }
 }
    
-// Kapitel 2 – Dezimaldarstellung
-let k2_solution;
-
-function generateK2() {
-    let [n, d] = randomFrac();
-
-    // Aufgabe anzeigen
-    let text = `$ \\frac{${n}}{${d}} $`;
-    document.getElementById("k2_task").innerHTML = text;
-
-    // Lösung berechnen
-    k2_solution = (n / d).toFixed(5);
-
-    if (window.MathJax) MathJax.typeset();
-}
-
-function checkK2() {
-    let user = document.getElementById("k2_input").value.replace(",", ".");
-    let out = document.getElementById("k2_result");
-
-    if (Math.abs(user - k2_solution) < 0.0001) {
-        out.innerHTML = "✔ Richtig!";
-        out.style.color = "green";
-    } else {
-        out.innerHTML = "✘ Falsch. Lösung: " + k2_solution;
-        out.style.color = "red";
-    }
-}
 
 // Seite starten
 window.onload = function() {
