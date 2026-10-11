@@ -183,6 +183,68 @@ window.onload = function() {
     generateK1();
 };
 </script>
+<script>
+// Hilfsfunktionen
+function gcd(a, b) {
+    return b === 0 ? a : gcd(b, a % b);
+}
+
+function simplify(n, d) {
+    let g = gcd(Math.abs(n), Math.abs(d));
+    return [n / g, d / g];
+}
+
+function fracToString(n, d) {
+    let s = simplify(n, d);
+    return s[0] + "/" + s[1];
+}
+
+function randomFrac() {
+    let n = Math.floor(Math.random() * 9) + 1;
+    let d = Math.floor(Math.random() * 9) + 1;
+    if (Math.random() < 0.5) n *= -1;
+    return [n, d];
+}
+
+// Kapitel 1 – Aufgabe erzeugen
+let k1_solution;
+
+function generateK1() {
+    let a = randomFrac();
+    let b = randomFrac();
+
+    // Aufgabe anzeigen
+    let text = `$ \\frac{${a[0]}}{${a[1]}} + \\frac{${b[0]}}{${b[1]}} $`;
+    document.getElementById("k1_task").innerHTML = text;
+
+    // Lösung berechnen
+    let n = a[0] * b[1] + b[0] * a[1];
+    let d = a[1] * b[1];
+    k1_solution = fracToString(n, d);
+
+    // MathJax aktualisieren
+    if (window.MathJax) MathJax.typeset();
+}
+
+// Prüfen
+function checkK1() {
+    let user = document.getElementById("k1_input").value.replace(/\s+/g, "");
+    let out = document.getElementById("k1_result");
+
+    if (user === k1_solution) {
+        out.innerHTML = "✔ Richtig!";
+        out.style.color = "green";
+    } else {
+        out.innerHTML = "✘ Falsch. Lösung: " + k1_solution;
+        out.style.color = "red";
+    }
+}
+
+// Seite starten
+window.onload = function() {
+    generateK1();
+};
+</script>
 
 </body>
 </html>
