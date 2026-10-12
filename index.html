@@ -2,32 +2,86 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rationale Zahlen – Interaktiv</title>
 
-    <!-- MathJax -->
-    <script>
-        MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };
-    </script>
-    <script id="MathJax-script" async
-            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-    </script>
-    
-    <script 
-        defer src="https://pyscript.net/latest/pyscript.js"> 
+    <!-- Sauberes, konfliktfreies MathJax -->
+    <script defer id="MathJax-script"
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
     </script>
 
+    <!-- Pyscript (korrekte Reihenfolge: nach MathJax, aber noch im Head) -->
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css">
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+
+    <!-- Optionaler Python-Umgebungsblock (stört nicht, auch wenn du ihn später nutzt) -->
+    <py-env>
+        - math
+        - fractions
+    </py-env>
+
+    <!-- Dein CSS – strukturiert und konfliktfrei -->
     <style>
-        body { font-family: Arial; background:#f4faff; margin:0; padding:0; }
-        header { background:#0099cc; color:white; padding:20px; text-align:center; }
-        section {
-            background:white; max-width:900px; margin:20px auto; padding:20px;
-            border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.1);
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
         }
-        h2 { color:#006699; }
-        .exercise { background:#f0faff; padding:10px; border-left:4px solid #0099cc; margin-top:10px; }
-        input { padding:6px; width:220px; margin-top:5px; }
-        button { padding:6px 10px; background:#0099cc; color:white; border:none; cursor:pointer; }
-        button:hover { background:#0077aa; }
+
+        header {
+            background-color: #4a6fa5;
+            color: white;
+            padding: 1.2rem;
+            text-align: center;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        section {
+            background: white;
+            padding: 1.2rem;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        button {
+            background-color: #4a6fa5;
+            color: white;
+            border: none;
+            padding: 0.6rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+
+        button:hover {
+            background-color: #3a5985;
+        }
+
+        input {
+            padding: 0.4rem;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            margin-top: 0.4rem;
+        }
+
+        .output {
+            margin-top: 0.8rem;
+            padding: 0.6rem;
+            background: #eef3fa;
+            border-radius: 6px;
+        }
     </style>
 </head>
 
@@ -312,18 +366,12 @@
 </section>
 
 
-<h3>Python-Test: Bruchrechnung im Browser</h3>
+<h3>Python-Test</h3>
 
 <button onclick="runPython()">Python ausführen</button>
 
-<div id="py-output" style="
-    margin-top:15px;
-    padding:10px;
-    border:1px solid #ccc;
-    border-radius:8px;
-    max-width:400px;
-    background:#fff9c4;
-">
+<div id="py-output"
+     style="margin-top:15px; padding:10px; background:#fff9c4; border-radius:8px;">
     Ergebnis erscheint hier …
 </div>
 
@@ -331,21 +379,20 @@
 from fractions import Fraction
 
 def python_test():
-    # Beispiel: (3/4 + 2/5) * 1/3
     a = Fraction(3, 4)
     b = Fraction(2, 5)
     c = Fraction(1, 3)
-    result = (a + b) * c
-    return result
+    return (a + b) * c
 </py-script>
 
 <script>
 function runPython() {
-    let fn = pyscript.interpreter.globals.get("python_test");
-    let result = fn();
-    document.getElementById("py-output").innerText = "Ergebnis: " + result;
+    const fn = pyscript.interpreter.globals.get("python_test")
+    const result = fn()
+    document.getElementById("py-output").innerText = "Ergebnis: " + result
 }
 </script>
+
     
 <script>
 // Hilfsfunktionen
