@@ -10,16 +10,6 @@
         src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
     </script>
 
-    <!-- Pyscript (korrekte Reihenfolge: nach MathJax, aber noch im Head) -->
-    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css">
-    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
-
-    <!-- Optionaler Python-Umgebungsblock (stört nicht, auch wenn du ihn später nutzt) -->
-    <py-env>
-        - math
-        - fractions
-    </py-env>
-
     <!-- Dein CSS – strukturiert und konfliktfrei -->
     <style>
         body {
@@ -483,33 +473,6 @@ window.onload = function() {
     generateK4();
 };
 </script>
-
-<h3>Python-Test</h3>
-
-<button onclick="runPython()">Python ausführen</button>
-
-<div id="py-output"
-     style="margin-top:15px; padding:10px; background:#fff9c4; border-radius:8px;">
-    Ergebnis erscheint hier …
-</div>
-
-<py-script>
-from fractions import Fraction
-
-def python_test():
-    a = Fraction(3, 4)
-    b = Fraction(2, 5)
-    c = Fraction(1, 3)
-    return (a + b) * c
-</py-script>
-
-<script>
-function runPython() {
-    const fn = pyscript.interpreter.globals.get("python_test")
-    const result = fn()
-    document.getElementById("py-output").innerText = "Ergebnis: " + result
-}
-</script>
-    
+   
 </body>
 </html>
