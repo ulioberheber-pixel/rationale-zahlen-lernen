@@ -11,6 +11,9 @@
     <script id="MathJax-script" async
             src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
     </script>
+    <script 
+        defer src="https://pyscript.net/latest/pyscript.js"> 
+    </script>
 
     <style>
         body { font-family: Arial; background:#f4faff; margin:0; padding:0; }
@@ -306,7 +309,43 @@
         <p id="k4_result"></p>
     </div>
 </section>
-   
+
+<h3>Python-Test: Bruchrechnung im Browser</h3>
+
+<button onclick="runPython()">Python ausführen</button>
+
+<div id="py-output" style="
+    margin-top:15px;
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    max-width:400px;
+    background:#fff9c4;
+">
+    Ergebnis erscheint hier …
+</div>
+
+<py-script>
+from fractions import Fraction
+
+def python_test():
+    # Beispiel: (3/4 + 2/5) * 1/3
+    a = Fraction(3, 4)
+    b = Fraction(2, 5)
+    c = Fraction(1, 3)
+    result = (a + b) * c
+    return result
+</py-script>
+
+<script>
+function runPython() {
+    let result = pyscript.interpreter.globals.get("python_test")()
+    document.getElementById("py-output").innerText = "Ergebnis: " + result
+}
+</script>
+
+
+    
 <script>
 // Hilfsfunktionen
 function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); }
